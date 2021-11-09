@@ -37,13 +37,13 @@ export const editCommand = async (commandName: string) => {
   switch (choice) {
     case "implementation": {
       const { implementation: initial } = await getCommand(commandName);
-      const implementation = await chooseCommandImplementation(initial.join(" "));
+      const implementation = await chooseCommandImplementation(initial);
       await writeCommand({ commandName, implementation });
       await editCommand(commandName);
       break;
     }
     case "commandName": {
-      const newCommandName = await chooseCommandName();
+      const newCommandName = await chooseCommandName(commandName);
       await removeCommand(commandName);
       await writeCommand({ commandName: newCommandName, implementation });
       await editCommand(commandName);

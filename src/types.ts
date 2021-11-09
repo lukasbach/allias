@@ -1,6 +1,6 @@
 export interface CommandData {
   commandName: string;
-  implementation: string[];
+  implementation: string;
 }
 
 export interface Config {

@@ -7,5 +7,5 @@ export const chooseCommandImplementation = async (initial?: string) => {
     message: 'Specify the implementation for your commandName',
     initial,
   });
-  return [implementation];
+  return implementation;
 };

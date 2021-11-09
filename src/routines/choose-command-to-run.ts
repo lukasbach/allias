@@ -18,11 +18,11 @@ export const chooseCommandToRun = async () => {
     message: `Which command do you want to run?`,
     choices: commands.map(({ commandName, implementation }) => ({
       title: commandName,
-      description: implementation[0],
+      description: implementation,
       value: commandName,
     }))
   });
 
   const { implementation } = await getCommand(choice);
-  exec(implementation.join(' '));
+  exec(implementation);
 };

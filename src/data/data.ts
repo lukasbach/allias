@@ -4,39 +4,45 @@ import { getConfig } from './config';
 import * as path from 'path';
 
 const shebang = '#!/bin/sh\n';
-const dataFile = 'commands.json';
 let dataCache: Data;
+
+const isCommandDataFile = async (filename: string) => {
+  const { dataFolder } = await getConfig();
+  return !(await fs.stat(path.join(dataFolder, filename))).isDirectory() && !filename.includes(".");
+}
 
 export const getData = async (): Promise<Data> => {
   const { dataFolder } = await getConfig();
 
   if (!dataCache) {
-    dataCache = await fs.readJSON(path.join(dataFolder, dataFile));
+    dataCache = { commands: [] };
+    for (const filename of (await fs.readdir(dataFolder))) {
+      if (await isCommandDataFile(filename)) {
+        dataCache.commands.push({
+          commandName: filename,
+          implementation: await fs.readFile(path.join(dataFolder, filename), { encoding: "utf8" }),
+        })
+      }
+    }
   }
   return dataCache;
-};
-
-export const existsData = async () => {
-  if (dataCache) {
-    return true;
-  }
-
-  const { dataFolder } = await getConfig();
-
-  return !!dataCache || fs.existsSync(path.join(dataFolder, dataFile));
 };
 
 export const writeData = async (data: Data) => {
   const { dataFolder, binFolder } = await getConfig();
   await fs.ensureDir(dataFolder);
   await fs.ensureDir(binFolder);
-  await fs.writeJson(
-    path.join(dataFolder, dataFile),
-    data,
-    {
-      spaces: 2,
+
+  for (const filename of await fs.readdir(dataFolder)) {
+    if (!(await isCommandDataFile(filename))) {
+      await fs.remove(path.join(dataFolder, filename));
     }
-  );
+  }
+
+  for (const { implementation, commandName } of data.commands) {
+    await fs.writeFile(path.join(dataFolder, commandName), implementation);
+  }
+
   dataCache = data;
 };
 
@@ -47,8 +53,8 @@ export const rewriteBinFolder = async () => {
   await fs.ensureDir(binFolder);
 
   for (const { commandName, implementation } of commands) {
-    await fs.writeFile(path.join(binFolder, `${commandName}.cmd`), implementation.join(' '));
-    await fs.writeFile(path.join(binFolder, `${commandName}`), `${shebang}${implementation.join(' ')}`);
+    await fs.writeFile(path.join(binFolder, `${commandName}.cmd`), implementation);
+    await fs.writeFile(path.join(binFolder, `${commandName}`), `${shebang}${implementation}`);
   }
 
   console.log("  Scripts updated. You may need to restart your terminal for changes to take effect.");

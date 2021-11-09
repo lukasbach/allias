@@ -21,7 +21,7 @@ export const chooseCommandToEdit = async () => {
     choices: [
       ...commands.map(({ commandName, implementation }) => ({
         title: commandName,
-        description: implementation[0],
+        description: implementation,
         value: commandName,
       })),
       {
