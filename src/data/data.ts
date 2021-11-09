@@ -70,8 +70,8 @@ export const writeCommand = async (command: CommandData) => {
 
 export const getCommands = async () => (await getData()).commands;
 
-export const getCommand = async (commandName: string) => {
-  return (await getCommands()).find(({ commandName }) => commandName === commandName)!;
+export const getCommand = async (commandToFind: string) => {
+  return (await getCommands()).find(({ commandName }) => commandToFind === commandName)!;
 };
 
 export const existsCommand = async (commandName: string) => {
