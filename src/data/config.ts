@@ -31,3 +31,10 @@ export const writeConfig = async (config: Config) => {
   );
   configCache = config;
 };
+
+export const deleteConfig = async () => {
+  const { dataFolder, binFolder } = await getConfig();
+  await fs.remove(binFolder);
+  await fs.remove(dataFolder);
+  await fs.remove(configFile);
+}

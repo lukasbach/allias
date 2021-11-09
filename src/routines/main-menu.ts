@@ -2,6 +2,7 @@ import prompts from 'prompts';
 import { newCommand } from './new-command';
 import { chooseCommandToEdit } from './choose-command-to-edit';
 import { chooseCommandToRun } from './choose-command-to-run';
+import { deleteData } from './delete-data';
 
 export const mainMenu = async () => {
   const { choice } = await prompts({
@@ -16,6 +17,10 @@ export const mainMenu = async () => {
       {
         title: "Edit Command",
         value: "edit",
+      },
+      {
+        title: "Delete all data",
+        value: "delete",
       },
       {
         title: "Exit",
@@ -35,6 +40,10 @@ export const mainMenu = async () => {
     }
     case "run": {
       await chooseCommandToRun();
+      break;
+    }
+    case "delete": {
+      await deleteData();
       break;
     }
     case "exit": {
