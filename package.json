@@ -1,8 +1,8 @@
 {
-  "name": "mycommands",
+  "name": "allias",
   "version": "1.0.0",
   "main": "lib/index.js",
-  "repository": "https://github.com/lukasbach/mycommands.git",
+  "repository": "https://github.com/lukasbach/allias.git",
   "author": "Lukas Bach <lbach@outlook.de>",
   "license": "MIT",
   "devDependencies": {

@@ -9,14 +9,14 @@ export const ensureConfig = async () => {
     const { dataFolder } = await prompts({
       type: 'text',
       name: 'dataFolder',
-      message: 'Choose a folder where mycommands will store your commands as JSON file',
-      initial: `${path.join(homedir(), '.mycommands')}`,
+      message: 'Choose a folder where allias will store your commands as JSON file',
+      initial: `${path.join(homedir(), '.allias')}`,
     });
 
     const { binFolder } = await prompts({
       type: 'text',
       name: 'binFolder',
-      message: 'Choose a folder where mycommands will store the bin files',
+      message: 'Choose a folder where allias will store the bin files',
       initial: `${path.join(dataFolder, 'bin')}`,
     });
 

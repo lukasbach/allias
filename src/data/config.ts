@@ -3,7 +3,7 @@ import { homedir } from 'os';
 import * as fs from 'fs-extra';
 import { Config } from '../types';
 
-const configFile = path.join(homedir(), '.mycommandsrc.json');
+const configFile = path.join(homedir(), '.alliasrc.json');
 let configCache: Config;
 
 export const getConfig = async (): Promise<Config> => {
