@@ -1,8 +1,10 @@
 {
   "name": "allias",
-  "version": "1.0.1",
-  "main": "lib/index.js",
-  "bin": "lib/index.js",
+  "version": "1.0.2",
+  "main": ".lib/index.js",
+  "bin": {
+    "allias": ".lib/index.js"
+  },
   "repository": "https://github.com/lukasbach/allias.git",
   "author": "Lukas Bach <lbach@outlook.de>",
   "license": "MIT",
