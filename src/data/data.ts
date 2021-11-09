@@ -53,7 +53,7 @@ export const rewriteBinFolder = async () => {
   await fs.ensureDir(binFolder);
 
   for (const { commandName, implementation } of commands) {
-    await fs.writeFile(path.join(binFolder, `${commandName}.cmd`), implementation);
+    await fs.writeFile(path.join(binFolder, `${commandName}.ps1`), implementation);
     await fs.writeFile(path.join(binFolder, `${commandName}`), `${shebang}${implementation}`);
   }
 
