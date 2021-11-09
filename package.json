@@ -1,6 +1,6 @@
 {
   "name": "allias",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "./lib/index.js",
   "bin": {
     "allias": "./lib/index.js"
