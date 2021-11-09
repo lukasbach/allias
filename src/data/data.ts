@@ -8,6 +8,7 @@ let dataCache: Data;
 
 const isCommandDataFile = async (filename: string) => {
   const { dataFolder } = await getConfig();
+  console.log(filename, path.join(dataFolder, filename), (await fs.stat(path.join(dataFolder, filename))).isDirectory(), !filename.includes("."))
   return !(await fs.stat(path.join(dataFolder, filename))).isDirectory() && !filename.includes(".");
 }
 
@@ -34,12 +35,14 @@ export const writeData = async (data: Data) => {
   await fs.ensureDir(binFolder);
 
   for (const filename of await fs.readdir(dataFolder)) {
-    if (!(await isCommandDataFile(filename))) {
+    if (await isCommandDataFile(filename)) {
+      console.log("Deleting file", path.join(dataFolder, filename))
       await fs.remove(path.join(dataFolder, filename));
     }
   }
 
   for (const { implementation, commandName } of data.commands) {
+    console.log("Writing file", path.join(dataFolder, commandName))
     await fs.writeFile(path.join(dataFolder, commandName), implementation);
   }
 

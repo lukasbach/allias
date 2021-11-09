@@ -7,6 +7,15 @@
   },
   "repository": "https://github.com/lukasbach/allias.git",
   "author": "Lukas Bach <lbach@outlook.de>",
+  "description": "Easily manage local commandline aliases",
+  "keywords": [
+    "cli",
+    "terminal",
+    "alias",
+    "command",
+    "helper",
+    "utility"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",

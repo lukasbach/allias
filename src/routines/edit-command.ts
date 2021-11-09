@@ -14,7 +14,7 @@ export const editCommand = async (commandName: string) => {
     choices: [
       {
         title: "Change implementation",
-        description: implementation[0],
+        description: implementation,
         value: "implementation",
       },
       {
@@ -44,6 +44,7 @@ export const editCommand = async (commandName: string) => {
     }
     case "commandName": {
       const newCommandName = await chooseCommandName(commandName);
+      console.log("Renaming", commandName, newCommandName);
       await removeCommand(commandName);
       await writeCommand({ commandName: newCommandName, implementation });
       await editCommand(commandName);
